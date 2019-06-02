@@ -1,0 +1,9 @@
+{
+  "name": "my-screeps-world",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "screepsmod-admin-utils": "^1.1.9",
+    "screepsmod-auth": "^2.4.6"
+  }
+}
