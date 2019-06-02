@@ -1,0 +1,8 @@
+start server
+screeps start
+
+Open cli
+npx screeps cli
+
+Change ticrate
+utils.setTickRate(1000)
