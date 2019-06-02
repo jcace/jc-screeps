@@ -1,5 +1,3 @@
-import * as mem from "./mem";
-
 export function run(creep: Creep) {
   if (creep.memory.working && creep.carry.energy == 0) {
     creep.memory.working = false;
@@ -7,17 +5,18 @@ export function run(creep: Creep) {
   }
   if (!creep.memory.working && creep.carry.energy == creep.carryCapacity) {
     creep.memory.working = true;
-    creep.say("⚡ upgrade");
+    creep.say("🚧 build");
   }
 
-  if (creep.memory.working && creep.room.controller) {
-    if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
-      creep.moveTo(creep.room.controller, {
-        visualizePathStyle: { stroke: "#ffffff" }
-      });
+  if (creep.memory.working) {
+    var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+    if (targets.length) {
+      if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
+        creep.moveTo(targets[0], { visualizePathStyle: { stroke: "#ffffff" } });
+      }
     }
   } else {
-    let sources = creep.room.find(FIND_SOURCES);
+    var sources = creep.room.find(FIND_SOURCES);
     if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
       creep.moveTo(sources[0], { visualizePathStyle: { stroke: "#ffaa00" } });
     }
