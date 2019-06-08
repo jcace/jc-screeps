@@ -8,5 +8,15 @@ declare global {
   interface CreepMemory {
     role: CreepRoles;
     working?: boolean;
+    minerSource?: string;
+  }
+
+  interface Memory {
+    sources: SourceMemory[];
+  }
+
+  interface SourceMemory {
+    id: string;
+    num: number;
   }
 }
