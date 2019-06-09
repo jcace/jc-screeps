@@ -1,45 +1,4 @@
-function findBestResourceId(creep: Creep): string {
-  const sources = creep.room.find(FIND_SOURCES);
-
-  if (!Memory.sources || Object.keys(Memory.sources).length === 0) {
-    const sourceMem: SourceMemory[] = [];
-    sources.forEach(src => {
-      sourceMem.push({ id: src.id, num: 0 });
-    });
-
-    Memory.sources = sourceMem;
-  }
-
-  const memoryRead: SourceMemory[] = Memory.sources;
-  let leastBusySource: string;
-  let min = 999;
-  memoryRead.forEach(src => {
-    if (src.num <= min) {
-      leastBusySource = src.id;
-      min = src.num;
-    }
-  });
-
-  console.log(`Least Busy: ${leastBusySource}`);
-
-  return leastBusySource;
-}
-
-function incrementResource(thisSource: string) {
-  Memory.sources.forEach(src => {
-    if (src.id === thisSource) {
-      src.num++;
-    }
-  });
-}
-
-function decrementResource(thisSource: string) {
-  Memory.sources.forEach(src => {
-    if (src.id === thisSource) {
-      src.num--;
-    }
-  });
-}
+import { decrementResource, findBestResourceId, incrementResource } from "./resourceTracker";
 
 export function run(creep: Creep) {
   if (creep.carry.energy === 0 && !creep.memory.working) {

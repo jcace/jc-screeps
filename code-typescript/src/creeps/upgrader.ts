@@ -1,5 +1,3 @@
-import * as mem from "./mem";
-
 export function run(creep: Creep) {
   if (creep.memory.working && creep.carry.energy == 0) {
     creep.memory.working = false;

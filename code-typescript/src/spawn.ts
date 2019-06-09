@@ -1,5 +1,3 @@
-import * as mem from "./creeps/mem";
-
 function calculateQuotas(): { numUpgraders: number; numBuilders: number; numMiners: number } {
   // const thisRoom = Game.spawns.Spawn1.room; // TODO dynamic
   // const maxMiningUnits = thisRoom.find(FIND_SOURCES).length * 3 + 2; // 3 + 1 miners per resource
@@ -37,23 +35,22 @@ export function spawnCreepsToQuota() {
   const miningUnitQuotas = calculateQuotas();
   // console.log(JSON.stringify(miningUnitQuotas));
 
-  const numMiners = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === mem.CreepRoles.ROLE_MINER).length;
-  const numUpgraders = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === mem.CreepRoles.ROLE_UPGRADER)
-    .length;
-  const numBuilders = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === mem.CreepRoles.ROLE_BUILDER).length;
+  const numMiners = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === "miner").length;
+  const numUpgraders = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === "upgrader").length;
+  const numBuilders = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === "builder").length;
 
   if (numMiners < miningUnitQuotas.numMiners) {
     let newName = "miner" + Game.time;
-    Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, { memory: { role: mem.CreepRoles.ROLE_MINER } });
+    Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, { memory: { role: "miner" } });
   } else if (numUpgraders < miningUnitQuotas.numUpgraders) {
     let newName = "upgrader" + Game.time;
     Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-      memory: { role: mem.CreepRoles.ROLE_UPGRADER, working: false }
+      memory: { role: "upgrader", working: false }
     });
   } else if (numBuilders < miningUnitQuotas.numBuilders) {
     let newName = "builder" + Game.time;
     Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-      memory: { role: mem.CreepRoles.ROLE_BUILDER, working: false }
+      memory: { role: "builder", working: false }
     });
   }
 }
