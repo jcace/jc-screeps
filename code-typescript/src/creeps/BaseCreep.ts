@@ -3,6 +3,7 @@ export default class BaseCreep extends Creep {
   protected creep: Creep;
   constructor(creep) {
     super(creep.id);
+    this.creep = Game.getObjectById(creep.id);
   }
 
   // determineWorking: {

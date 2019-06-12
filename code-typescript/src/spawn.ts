@@ -30,27 +30,19 @@ function calculateQuotas(): { numUpgraders: number; numBuilders: number; numMine
   return { numUpgraders: 0, numBuilders: 0, numMiners: 5 };
 }
 
+function calculateWorkerQuota() {
+  return 5;
+}
+
 export function spawnCreepsToQuota() {
   if (Game.spawns["Spawn1"].spawning) return;
-  const miningUnitQuotas = calculateQuotas();
+  const workerQuota = calculateWorkerQuota();
   // console.log(JSON.stringify(miningUnitQuotas));
 
-  const numMiners = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === "miner").length;
-  const numUpgraders = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === "upgrader").length;
-  const numBuilders = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === "builder").length;
+  const numWorkers = _.filter(Game.creeps, (creep: Creep) => creep.memory.type === "worker").length;
 
-  if (numMiners < miningUnitQuotas.numMiners) {
-    let newName = "miner" + Game.time;
-    Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, { memory: { role: "miner" } });
-  } else if (numUpgraders < miningUnitQuotas.numUpgraders) {
-    let newName = "upgrader" + Game.time;
-    Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-      memory: { role: "upgrader", working: false }
-    });
-  } else if (numBuilders < miningUnitQuotas.numBuilders) {
-    let newName = "builder" + Game.time;
-    Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, {
-      memory: { role: "builder", working: false }
-    });
+  if (numWorkers < workerQuota) {
+    let newName = "worker" + Game.time;
+    Game.spawns["Spawn1"].spawnCreep([WORK, CARRY, MOVE], newName, { memory: { type: "worker", task: "mine" } });
   }
 }

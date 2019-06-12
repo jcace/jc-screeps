@@ -22,6 +22,10 @@ export function findBestResourceId(creep: Creep): string {
   return leastBusySource;
 }
 
+function purgeDeadMiners(totalMiners) {
+  // TODO: decrementResource so that #miners matches creeps with memory minerSource === this source.
+}
+
 export function incrementResource(thisSource: string) {
   Memory.sources.forEach(src => {
     if (src.id === thisSource) {

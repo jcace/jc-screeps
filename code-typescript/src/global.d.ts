@@ -1,5 +1,6 @@
 interface CreepMemory {
-  role: CreepRole;
+  type: CreepType;
+  task: CreepTask;
   working?: boolean;
   minerSource?: string;
 }
@@ -13,4 +14,5 @@ interface SourceMemory {
   num: number;
 }
 
-type CreepRole = "upgrader" | "miner" | "builder";
+type CreepTask = "upgrade" | "mine" | "build";
+type CreepType = "worker" | "scout" | "warrior";

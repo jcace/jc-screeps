@@ -21,27 +21,13 @@ const cleanMemory: () => void = () => {
 
 const mainLoop: () => void = () => {
   cleanMemory();
-  console.log("New Code!");
 
-  Object.keys(Game.creeps).forEach(creepName => {
+  _.each(Game.creeps, (creep: Worker) => {
+    const thisCreep = new Worker(creep);
+
+    thisCreep.doWork();
     // TODO: How do we get the class instance worker doWork called?
     // Game.creeps[creepName].doWork();
-  });
-
-  // _.each(Game.creeps, (creep: Worker) => {
-  //   if (creep.memory.role === "miner");
-  //   {
-  //   }
-  //   creep.doWork();
-    // if (creep.memory.role === "miner") {
-    //   miner.run(creep);
-    // }
-    // if (creep.memory.role === "upgrader") {
-    //   upgrader.run(creep);
-    // }
-    // if (creep.memory.role === "builder") {
-    //   builder.run(creep);
-    // }
   });
 
   spawnCreepsToQuota();
